@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: private-docker-registry-node
+  namespace: private-docker-registry
 spec:
   type: NodePort
   selector:
@@ -15,6 +16,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: private-docker-registry-cache-node
+  namespace: private-docker-registry
 spec:
   type: NodePort
   selector:
