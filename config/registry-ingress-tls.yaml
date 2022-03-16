@@ -12,10 +12,10 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - registry.<your domain>
-    secretName: registry-tls
+    - hub.voboril.dev
+    secretName: regestry-tls
   rules:
-  - host: registry.<your domain>
+  - host: registry.url
     http:
       paths:
       - path: /

@@ -10,7 +10,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: registry.k8.local
+  - host: registry.url
     http:
       paths:
       - path: /
