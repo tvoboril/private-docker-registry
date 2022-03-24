@@ -64,7 +64,7 @@ spec:
         imagePullPolicy: Always
         name: private-docker-registry
         ports:
-        - containerPort: 5000
+        - containerPort: 443
           name: 443tls
           protocol: TCP
         resources: {}
