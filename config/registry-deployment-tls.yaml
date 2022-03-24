@@ -55,7 +55,7 @@ spec:
         - name: REGISTRY_REDIS_ADDR
           value: private-docker-registry-cache.private-docker-registry.svc.cluster.local:6379
         - name: REGISTRY_HTTP_ADDR
-          value: 0.0.0.0:443
+          value: 0.0.0.0:5000
         - name: REGISTRY_HTTP_TLS_CERTIFICATE
           value: /certs/tls.crt
         - name: REGISTRY_HTTP_TLS_KEY
@@ -64,8 +64,8 @@ spec:
         imagePullPolicy: Always
         name: private-docker-registry
         ports:
-        - containerPort: 443
-          name: 443tls
+        - containerPort: 5000
+          name: 5000tls
           protocol: TCP
         resources: {}
         securityContext:
