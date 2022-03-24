@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: private-docker-registry
+  annotations:
+    kubernetes.io/ingress.class: "nginx"    
+    cert-manager.io/issuer: "letsencrypt-staging"
+spec:
+  rules:
+  - host: HOSTNAME
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: private-docker-registry
+            port:
+              number: 5000
+  tls: # < placing a host in the TLS config will determine what ends up in the cert's subjectAltNames
+  - hosts:
+    - HOSTNAME
+    secretName: private-docker-registry-cert # < cert-manager will store the created certificate in this secret.
