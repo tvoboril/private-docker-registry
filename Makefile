@@ -36,3 +36,13 @@ cachelogs:
 alllogs:
 	@kubectl logs deployment.apps/private-docker-registry -n private-docker-registry
 	@kubectl logs deployment.apps/private-docker-registry-cache -n private-docker-registry
+ingress:
+	@kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.2/deploy/static/provider/cloud/deploy.yaml
+	@kubectl create namespace cert-manager
+	@helm repo add jetstack https://charts.jetstack.io
+	@helm repo update
+	@helm install \
+  cert-manager jetstack/cert-manager \
+  --namespace cert-manager \
+  --version v1.1.0 \
+  --set installCRDs=true
