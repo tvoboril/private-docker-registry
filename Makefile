@@ -46,3 +46,5 @@ ingress:
   --namespace cert-manager \
   --version v1.1.0 \
   --set installCRDs=true
+adduser:
+	@htpasswd -Bc auth
