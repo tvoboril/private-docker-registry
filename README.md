@@ -1,5 +1,7 @@
 # Private Docker Registry
 
+This is a project to use the official docker registry 2 image to create a private docker registry with an Amazon S3 backend with a Redis Cache.  This does not cover ingress etc into a cluster.  I would suggest using an nginx load balancer with cert-manager and acme certs so you don't have think about it much.
+
 
 ## Simple Deployment
 To deploy a single node private docker registry (port 5000) with an Amazon S3 backend and a Redis cache on a Kubernetes Cluster:
@@ -10,7 +12,7 @@ To deploy a single node private docker registry (port 5000) with an Amazon S3 ba
     * base64
     * make
     * kubectl
-2. Configure S3 (See below)
+2. Configure S3 [(See below)](https://github.com/tvoboril/private-docker-registry#setting-up-amazon-s3)
 3. Have a k8s cluster and make sure you are in the right context!
 4. Run `./configure` (or `make config`)
 
@@ -44,7 +46,7 @@ To deploy a single node private docker registry (port 5000) with an Amazon S3 ba
     * base64
     * make
     * kubectl
-2. Configure S3 (See below)
+2. Configure S3 [(See below)](https://github.com/tvoboril/private-docker-registry#setting-up-amazon-s3)
 3. Have a k8s cluster and make sure you are in the right context!
 4. Run `./configure` (or `make config`) and it will:
     * This will create the `registry-secrets.yaml` file alternately you can edit the `registry-secrets.template` file and rename it `registry-secrets.yaml`
