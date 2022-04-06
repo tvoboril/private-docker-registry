@@ -5,4 +5,4 @@ openssl req -newkey rsa:4096 \
             -nodes \
             -out priv.domain.crt \
             -keyout priv.domain.key
-kubectl create secret tls domain-tls --key="priv.domain.key" --cert="priv.domain.crt"  --dry-run=client -o yaml >> /config/priv.domain-tls.yaml
+kubectl create secret tls domain-tls --key="priv.domain.key" --cert="priv.domain.crt"  --dry-run=client -o yaml >> /priv.domain-tls.yaml

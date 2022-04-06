@@ -3,7 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: docker-registry-config
-  namespace: private-docker-registry
+  namespace: registry
 data:
   config.yml: |
     version: 0.1
@@ -27,20 +27,20 @@ data:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: private-docker-registry-cache
-  namespace: private-docker-registry
+  name: registry-cache
+  namespace: registry
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: private-docker-registry-cache
+      app: registry-cache
   template:
     metadata:
       labels:
-        app: private-docker-registry-cache
+        app: registry-cache
     spec:
       containers:
-      - name: private-docker-registry-cache
+      - name: registry-cache
         image: redis
         ports:
         - containerPort: 6379
@@ -50,11 +50,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: private-docker-registry
-  namespace: private-docker-registry
+  name: registry
+  namespace: registry
 spec:
   selector:
-    app: private-docker-registry
+    app: registry
   ports:
   - port: 5000
     targetPort: 5000
@@ -62,11 +62,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: private-docker-registry-cache
-  namespace: private-docker-registry
+  name: registry-cache
+  namespace: registry
 spec:
   selector:
-    app: private-docker-registry-cache
+    app: registry-cache
   ports:
   - port: 6379
     targetPort: 6379
@@ -75,14 +75,14 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: private-docker-registry
-  name: private-docker-registry
-  namespace: private-docker-registry
+    app: registry
+  name: registry
+  namespace: registry
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: private-docker-registry
+      app: registry
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -91,22 +91,22 @@ spec:
   template:
     metadata:
       labels:
-        app: private-docker-registry
+        app: registry
     spec:
       containers:
       - envFrom:
         - secretRef:
-            name: private-docker-registry
+            name: registry
         env:
         - name: REGISTRY_STORAGE
           value: s3
         - name: REGISTRY_STORAGE_CACHE_BLOBDESCRIPTOR
           value: redis
         - name: REGISTRY_REDIS_ADDR
-          value: private-docker-registry-cache.private-docker-registry.svc.cluster.local:6379
+          value: registry-cache.registry.svc.cluster.local:6379
         image: registry:2
         imagePullPolicy: Always
-        name: private-docker-registry
+        name: registry
         ports:
         - containerPort: 5000
           name: 5000tcp01
