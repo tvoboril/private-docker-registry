@@ -1,12 +1,11 @@
 #!/bin/bash
-cp registry-secrets.template registry-secrets.yaml
-
 read -p "S3 Access Key ID? : " REG_ACCESS_KEY
 read -p "S3 Bucket (NAME Only)? : " REG_BUCKET
 read -p "S3 Region? : " REG_REGION
 read -s -p "S3 Secret Key? : " REG_SECRET_KEY
+echo""
 read -s -p "HTTP internal secret (used internally can be anything)? : " REG_SECRET
-
+echo""
 read -p "Registry User? : " REG_USER
 read -s -p "Registry Password? : " REG_PASSWD
 
@@ -22,4 +21,4 @@ export REG_PASSWD=$REG_PASSWD
 htpasswd -Bcb htpasswd.auth $REG_USER $REG_PASSWD
 export REG_HTPASSWD=$(cat htpasswd.auth | base64)
 
-envsubst < registry-secrets.yaml
+envsubst < registry-secrets.template > registry-secrets.yaml
