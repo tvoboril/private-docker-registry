@@ -1,5 +1,7 @@
 
-.PHONY: stats
+.PHONY: config
+config:
+	./configure
 
 deploy: # Create Enviroment and Deploy Pods
 	@kubectl create namespace registry
