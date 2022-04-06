@@ -12,7 +12,7 @@ To deploy a single node private docker registry (port 5000) with an Amazon S3 ba
     * base64
     * make
     * kubectl
-2. Configure S3 [(See below)](https://github.com/tvoboril/private-docker-registry/blob/main/README.md#setting-up-amazon-s3)
+2. Configure S3 [(See below)](https://github.com/tvoboril/private-docker-registry#setting-up-amazon-s3)
 3. Have a k8s cluster and make sure you are in the right context!
 4. Run `./configure` (or `make config`)
 
@@ -46,7 +46,7 @@ To deploy a single node private docker registry (port 5000) with an Amazon S3 ba
     * base64
     * make
     * kubectl
-2. Configure S3 [(See below)](https://github.com/tvoboril/private-docker-registry/blob/main/README.md#setting-up-amazon-s3)
+2. Configure S3 [(See below)](https://github.com/tvoboril/private-docker-registry#setting-up-amazon-s3)
 3. Have a k8s cluster and make sure you are in the right context!
 4. Run `./configure` (or `make config`) and it will:
     * This will create the `registry-secrets.yaml` file alternately you can edit the `registry-secrets.template` file and rename it `registry-secrets.yaml`
