@@ -1,5 +1,7 @@
 # Private Docker Registry
 
+This is a project to use the official docker registry 2 image to create a private docker registry with an Amazon S3 backedn with a Redis Cache.  This does not cover ingress etc into a cluster.  I would suggest using an nginx load balancer with cert-manager and acme certs so you don't have think about it much
+
 
 ## Simple Deployment
 To deploy a single node private docker registry (port 5000) with an Amazon S3 backend and a Redis cache on a Kubernetes Cluster:
