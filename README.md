@@ -1,2 +1,109 @@
-# private-docker-registry
-Private Docker Registry
+# Private Docker Registry
+
+
+## Simple Deployment
+To deploy a single node private docker registry (port 5000) with an Amazon S3 backend and a Redis cache on a Kubernetes Cluster:
+
+
+1. Install dependences
+    * htpasswd (comes with apache)
+    * base64
+    * make
+    * kubectl
+2. Configure S3 (See below)
+3. Have a k8s cluster and make sure you are in the right context!
+4. Run `./configure` (or `make config`)
+
+
+    ```
+    S3 Access Key ID?
+    S3 Bucket (NAME Only)?
+    S3 Region?
+    S3 Secret Key?
+    HTTP internal secret (used internally can be anything)?
+    
+    Registry User?
+    Registry Password?
+    ```
+    * This will create the `registry-secrets.yaml` file alternately you can edit the `registry-secrets.template` file and rename it `registry-secrets.yaml`
+    * This will also create the appropriately formated htpasswd file and encode it to base64
+5. (Optional) run `make adduser` to add additional users to the htpasswd file
+6. Run `make deploy`
+    * Create the `registry` namespace
+    * Deploy secrets
+    * Deploy ... Deployment (with configMaps, etc)
+    * Display resources
+
+
+## TLS Deployment
+To deploy a single node private docker registry (port 5000) with an Amazon S3 backend and a Redis cache and TLS on a Kubernetes Cluster:
+
+
+1. Install dependences
+    * htpasswd (comes with apache)
+    * base64
+    * make
+    * kubectl
+2. Configure S3 (See below)
+3. Have a k8s cluster and make sure you are in the right context!
+4. Run `./configure` (or `make config`) and it will:
+    * This will create the `registry-secrets.yaml` file alternately you can edit the `registry-secrets.template` file and rename it `registry-secrets.yaml`
+    * This will also create the appropriately formated htpasswd file and encode it to base64
+5. (Optional) run `make adduser` to add additional users to the htpasswd file
+6. Run `make deploy-tls` and it will:
+    * Generate a self signed certificate
+    * Create the `registry` namespace
+    * Deploy secrets
+    * Deploy ... Deployment-tls (with configMaps, etc)
+    * Display resources
+
+## Cleanup
+* `make teardown`
+    * This will DELETE the `registry` namespace please make sure you are not using it for anything else...
+
+## Testing
+* `make nodeports` will create nodeports for the the registry on 30500 and for the Redis cache
+* `make restart` will restart the registry and cache pods
+* `make stats` will get all resources for this project
+* `make alllogs` will print the logs for the registry and the cache
+* `make reglogs` will watch the registry logs
+* `make cachelogs` will watch the Redis Cache logs 
+
+
+
+
+
+
+## Setting Up Amazon S3
+
+1. Create S3 Bucket
+2. Create IAM Policy per [Docker Documentation](https://docs.docker.com/registry/storage-drivers/s3/#s3-permission-scopes)
+3. Create service user with the created IAM Policy
+
+```javascript
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:ListBucket",
+        "s3:GetBucketLocation",
+        "s3:ListBucketMultipartUploads"
+      ],
+      "Resource": "arn:aws:s3:::S3_BUCKET_NAME"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:PutObject",
+        "s3:GetObject",
+        "s3:DeleteObject",
+        "s3:ListMultipartUploadParts",
+        "s3:AbortMultipartUpload"
+      ],
+      "Resource": "arn:aws:s3:::S3_BUCKET_NAME/*"
+    }
+  ]
+}
+```
