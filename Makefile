@@ -3,12 +3,19 @@
 
 deploy: # Create Enviroment and Deploy Pods
 	@kubectl create namespace registry
-	@kubectl apply -f priv-registry-secrets.yaml
+	@kubectl apply -f registry-secrets.yaml
 	@kubectl apply -f registry-deployment.yaml
 	@kubectl get all -n registry
 
 teardown:
 	@kubectl delete namespace registry
+
+deploy-tls:
+	./makecert.sh
+	@kubectl create namespace registry
+	@kubectl apply -f registry-secrets.yaml
+	@kubectl apply -f registry-deployment-tls.yaml
+	@kubectl get all -n registry
 
 nodeports:
 	@kubectl apply -f registry-node-services.yaml
