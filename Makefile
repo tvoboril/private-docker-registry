@@ -14,6 +14,7 @@ deploy-tls:
 	./makecert.sh
 	@kubectl create namespace registry
 	@kubectl apply -f registry-secrets.yaml
+	@kubectl apply -f priv.domain-tls.yaml
 	@kubectl apply -f registry-deployment-tls.yaml
 	@kubectl get all -n registry
 
