@@ -64,7 +64,7 @@ To deploy a single node private docker registry (port 5000) with an Amazon S3 ba
     * This will DELETE the `registry` namespace please make sure you are not using it for anything else...
 
 ## Testing
-* `make nodeports` will create nodeports for the the registry on 30500 and for the Redis cache
+* `make nodeports` will create nodeports for the the registry on 30500 and for the Redis cache.  Test acces with http://localhost:30500/v2/_catalog
 * `make restart` will restart the registry and cache pods
 * `make stats` will get all resources for this project
 * `make alllogs` will print the logs for the registry and the cache
