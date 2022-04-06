@@ -80,6 +80,7 @@ To deploy a single node private docker registry (port 5000) with an Amazon S3 ba
 
 1. Create S3 Bucket
 2. Create IAM Policy per [Docker Documentation](https://docs.docker.com/registry/storage-drivers/s3/#s3-permission-scopes)
+    * Note the *S3_BUCKET_NAME* needs to match your new bucket
 3. Create service user with the created IAM Policy
 
 ```javascript
