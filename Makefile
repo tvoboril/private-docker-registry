@@ -45,3 +45,7 @@ alllogs:
 
 adduser:
 	@./adduser.sh
+
+push_new_user:
+	@./adduser.sh
+	@kubectl apply -f registry-secrets.yaml
