@@ -46,6 +46,30 @@ spec:
         command:
         - redis-server
 ---
+apiVersion: v1
+kind: Service
+metadata:
+  name: private-docker-registry
+  namespace: private-docker-registry
+spec:
+  selector:
+    app: private-docker-registry
+  ports:
+  - port: 5000
+    targetPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: private-docker-registry-cache
+  namespace: private-docker-registry
+spec:
+  selector:
+    app: private-docker-registry-cache
+  ports:
+  - port: 6379
+    targetPort: 6379
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
