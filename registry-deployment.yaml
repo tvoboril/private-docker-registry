@@ -62,7 +62,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: registry-cache
+  name: registry-cache-svc
   namespace: registry
 spec:
   selector:
@@ -98,7 +98,7 @@ spec:
         - name: REGISTRY_STORAGE_CACHE_BLOBDESCRIPTOR
           value: redis
         - name: REGISTRY_REDIS_ADDR
-          value: registry-cache:6379
+          value: registry-cache-svc:6379
         image: registry:2
         name: registry
         ports:
