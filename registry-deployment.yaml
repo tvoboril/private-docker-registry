@@ -16,10 +16,8 @@ data:
   REGISTRY_STORAGE:                      s3
   REGISTRY_STORAGE_S3_REGION:            ${S3_REGION}
   REGISTRY_STORAGE_S3_BUCKET:            ${S3_BUCKET}
-  REGISTRY_STORAGE_S3_REGIONENDPOINT:    ${S3_REGION_ENDPOINT}
   REGISTRY_STORAGE_CACHE_BLOBDESCRIPTOR: redis
   REGISTRY_REDIS_ADDR:                   redis.registry.svc:6379
-  REGISTRY_HTTP_SECRET:                  ${HTTP_COOKIE}
 
 
 ---
@@ -30,16 +28,6 @@ metadata:
   name: cookie
 stringData:
   value: ${HTTP_COOKIE}
-
----
-apiVersion: v1
-kind: Secret
-metadata:
-  namespace: registry
-  name: auth
-stringData:
-  username: docker
-  password: ${REGISTRY_PASSWORD}
 
 ---
 apiVersion: v1
@@ -113,7 +101,7 @@ spec:
     spec:
       initContainers:
         - name: htpasswd
-          image: filefrog/htpasswd
+          image: tomvoboril/htpasswd
 
           volumeMounts:
             - name: auth
