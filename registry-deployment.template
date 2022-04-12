@@ -125,7 +125,7 @@ spec:
             - -c
             - |
               set -x
-              htpasswd -Bnb ${AUTH_USERNAME:-} ${AUTH_PASSWORD:-} > /auth/htpasswd
+              htpasswd -Bnb ${AUTH_USERNAME} ${AUTH_PASSWORD} > /auth/htpasswd
 
       containers:
         - name: registry
