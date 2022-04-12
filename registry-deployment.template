@@ -34,6 +34,17 @@ apiVersion: v1
 kind: Secret
 metadata:
   namespace: registry
+  name: auth
+stringData:
+  username: ${REGISTRY_USERNAME}
+  password: ${REGISTRY_PASSWORD}
+
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  namespace: registry
   name: s3
 stringData:
   accessKey: ${S3_ACCESS_KEY}
@@ -125,7 +136,7 @@ spec:
             - -c
             - |
               set -x
-              htpasswd -Bnb ${AUTH_USERNAME} ${AUTH_PASSWORD} > /auth/htpasswd
+              htpasswd -Bcb /auth/htpasswd ${AUTH_USERNAME:-} ${AUTH_PASSWORD:-}
 
       containers:
         - name: registry
