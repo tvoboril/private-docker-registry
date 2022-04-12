@@ -1,4 +1,4 @@
 priv*
 .DS_Store
 htpasswd.auth
-registry-secrets.yaml
+registry-deployment.yaml
