@@ -22,7 +22,7 @@ To deploy a single node private docker registry (port 5000) with an Amazon S3 ba
     S3 Bucket (NAME Only)?
     S3 Region?
     S3 Secret Key?
-    HTTP internal secret (used internally can be anything)?
+    HTTP Token (used internally can be anything)?
     
     Registry User?
     Registry Password?
@@ -34,29 +34,6 @@ To deploy a single node private docker registry (port 5000) with an Amazon S3 ba
     * Create the `registry` namespace
     * Deploy secrets
     * Deploy ... Deployment (with configMaps, etc)
-    * Display resources
-
-
-## TLS Deployment
-To deploy a single node private docker registry (port 5000) with an Amazon S3 backend and a Redis cache and TLS on a Kubernetes Cluster:
-
-
-1. Install dependences
-    * htpasswd (comes with apache)
-    * base64
-    * make
-    * kubectl
-2. Configure S3 [(See below)](https://github.com/tvoboril/private-docker-registry#setting-up-amazon-s3)
-3. Have a k8s cluster and make sure you are in the right context!
-4. Run `./configure` (or `make config`) and it will:
-    * This will create the `registry-secrets.yaml` file alternately you can edit the `registry-secrets.template` file and rename it `registry-secrets.yaml`
-    * This will also create the appropriately formated htpasswd file and encode it to base64
-5. (Optional) run `make adduser` to add additional users to the htpasswd file
-6. Run `make deploy-tls` and it will:
-    * Generate a self signed certificate
-    * Create the `registry` namespace
-    * Deploy secrets
-    * Deploy ... Deployment-tls (with configMaps, etc)
     * Display resources
 
 ## Cleanup
