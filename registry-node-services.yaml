@@ -8,10 +8,9 @@ spec:
   selector:
     app: registry
   ports:
-  - port: 5000
-    targetPort: registry
+  - targetPort: registry
     nodePort: 30500
-    protocol: TCP
+    port: 5000
 ---
 apiVersion: v1
 kind: Service
@@ -23,7 +22,6 @@ spec:
   selector:
     app: cache
   ports:
-  - port: 6379
-    targetPort: redis
+  - targetPort: redis
     nodePort: 30379
-    protocol: TCP
+    port: 6379
